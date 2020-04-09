@@ -1,7 +1,7 @@
 import React from 'react';
 import './UserOutput.css'
 
-const UserInput = ({ title, body }) => {
+const userInput = ({ title, body }) => {
   return (
     <div className="dUserOutput">
       <p>{title}</p>
@@ -10,4 +10,4 @@ const UserInput = ({ title, body }) => {
   )
 }
 
-export default UserInput;
+export default userInput;
