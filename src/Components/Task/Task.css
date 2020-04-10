@@ -1,0 +1,14 @@
+.dTask {
+  border: 1px solid #ccc;
+  width: 300px;
+  padding: 2em;
+  margin-bottom: 1em;
+}
+
+.dTask-title {
+  font-size: 1.3em;
+}
+
+.dTask-description {
+  font-size: 0.8em;
+}

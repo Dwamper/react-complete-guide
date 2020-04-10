@@ -1,55 +1,47 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
+import Task from './Components/Task/Task'
 
 class App extends Component {
   state = {
-    persons: [
-      { name: 'Dwamper', age: 30 },
-      { name: 'Ainvolt', age: 31 },
+    tasks: [
+      { id: 1, name: 'Leart React', description: 'Learn basics' },
+      { id: 2, name: 'Leart React 2', description: 'Learn conditions' },
+      { id: 3, name: 'Leart React 3', description: 'Learn lists' },
     ],
-    showPersons: false
-  }
-  switchName = name => {
-    this.setState({
-      persons: [
-        { name, age: 30 },
-        { name: 'Ainvolt', age: 31 },
-      ]
-    })
   }
 
-  changeName = event => {
-    this.setState({
-      persons: [
-        { name: event.target.value, age: 30 },
-        { name: 'Ainvolt', age: 31 },
-      ]
-    })
+  removeTask = (id) => {
+    const tasks = [...this.state.tasks].filter(t => t.id !== id);
+    this.setState({ tasks })
   }
 
-  toggelPersonsHanler = () => {
-    const doesShow = this.state.showPersons
-    this.setState({ showPersons: !doesShow })
+  taskChanged = (event, id) => {
+    const tasks = [...this.state.tasks]
+    const taskIndex = tasks.findIndex(t => t.id === id);
+    const task = {
+      ...tasks[taskIndex],
+      description: event.target.value,
+    }
+    tasks[taskIndex] = task;
+    this.setState({ tasks })
   }
 
   render() {
-    const person = this.state.persons[0]
-    let persons = null;
-    if (this.state.showPersons) {
-      persons = (
-        < Person
-          name={person.name}
-          age={person.age}
-          atChange={this.changeName}
-          click={() => this.switchName('Egorka')
-          }> Some text</Person >
-      )
+    let tasks = null
+    if (this.state.tasks && this.state.tasks.length > 0) {
+      tasks = this.state.tasks.map(item => (
+        <Task
+          key={item.id}
+          task={item}
+          removeTask={() => this.removeTask(item.id)}
+          changed={event => this.taskChanged(event, item.id)}
+        />
+      ))
     }
     return (
       <div className="App">
-        <button onClick={this.toggelPersonsHanler}>switch</button>
-        {persons}
+        {tasks}
       </div>
     );
   }
