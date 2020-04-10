@@ -7,7 +7,8 @@ class App extends Component {
     persons: [
       { name: 'Dwamper', age: 30 },
       { name: 'Ainvolt', age: 31 },
-    ]
+    ],
+    showPersons: false
   }
   switchName = name => {
     this.setState({
@@ -19,7 +20,6 @@ class App extends Component {
   }
 
   changeName = event => {
-
     this.setState({
       persons: [
         { name: event.target.value, age: 30 },
@@ -28,15 +28,28 @@ class App extends Component {
     })
   }
 
+  toggelPersonsHanler = () => {
+    const doesShow = this.state.showPersons
+    this.setState({ showPersons: !doesShow })
+  }
+
   render() {
     const person = this.state.persons[0]
-    return (
-      <div className="App">
-        <Person
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        < Person
           name={person.name}
           age={person.age}
           atChange={this.changeName}
-          click={() => this.switchName('Egorka')}>Some text</Person>
+          click={() => this.switchName('Egorka')
+          }> Some text</Person >
+      )
+    }
+    return (
+      <div className="App">
+        <button onClick={this.toggelPersonsHanler}>switch</button>
+        {persons}
       </div>
     );
   }
