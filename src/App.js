@@ -9,6 +9,7 @@ class App extends Component {
       { id: 2, name: 'Leart React 2', description: 'Learn conditions' },
       { id: 3, name: 'Leart React 3', description: 'Learn lists' },
     ],
+    showTasks: false,
   }
 
   removeTask = (id) => {
@@ -29,7 +30,7 @@ class App extends Component {
 
   render() {
     let tasks = null
-    if (this.state.tasks && this.state.tasks.length > 0) {
+    if (this.state.showTasks && this.state.tasks && this.state.tasks.length > 0) {
       tasks = this.state.tasks.map(item => (
         <Task
           key={item.id}
@@ -39,8 +40,31 @@ class App extends Component {
         />
       ))
     }
+
+    const btnStyle = {
+      borderColor: this.state.showTasks ? 'green' : 'red',
+      marginBottom: '24px',
+      padding: '0.8em',
+    }
+
+    let headerClasses = ['App-title']
+
+    if (this.state.tasks.length <= 2) {
+      headerClasses.push('bold')
+    }
+
+    if (this.state.tasks.length <= 1) {
+      headerClasses.push('red')
+    }
+
+    headerClasses = headerClasses.join(' ')
+
     return (
       <div className="App">
+        <h1 className={headerClasses}>Tasks</h1>
+        <button
+          style={btnStyle}
+          onClick={() => { this.setState({ showTasks: !this.state.showTasks }) }}>toggle</button>
         {tasks}
       </div>
     );
