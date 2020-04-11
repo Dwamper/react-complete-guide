@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Radium, { StyleRoot } from 'radium';
 import './App.css';
 import Task from './Components/Task/Task'
 
@@ -47,6 +48,10 @@ class App extends Component {
       padding: '0.8em',
     }
 
+    btnStyle[':hover'] = {
+      backgroundColor: 'salmon'
+    }
+
     let headerClasses = ['App-title']
 
     if (this.state.tasks.length <= 2) {
@@ -60,15 +65,17 @@ class App extends Component {
     headerClasses = headerClasses.join(' ')
 
     return (
-      <div className="App">
-        <h1 className={headerClasses}>Tasks</h1>
-        <button
-          style={btnStyle}
-          onClick={() => { this.setState({ showTasks: !this.state.showTasks }) }}>toggle</button>
-        {tasks}
-      </div>
+      <StyleRoot>
+        <div className="App">
+          <h1 className={headerClasses}>Tasks</h1>
+          <button
+            style={btnStyle}
+            onClick={() => { this.setState({ showTasks: !this.state.showTasks }) }}>toggle</button>
+          {tasks}
+        </div>
+      </StyleRoot>
     );
   }
 }
 
-export default App;
+export default Radium(App);
